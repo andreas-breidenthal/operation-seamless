@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Aldgate Manuscript · Operation Seamless</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --parchment:  #f2e8d5;
+      --parchment2: #ede0c4;
+      --parchment3: #e4d4ad;
+      --page-bg:    #c8b89a;
+      --ink:        #2a1f0e;
+      --ink-faded:  #3d2f18;
+      --sepia:      #6b4f2a;
+      --muted:      #9a7a50;
+      --rule:       #c0a878;
+      --accent:     #2a3a5a;
+      --shadow:     rgba(42,31,14,0.25);
+      --shadow-lg:  rgba(42,31,14,0.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.9;
+      min-height: 100vh;
+      /* aged paper texture */
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    }
+
+    /* SITE NAV */
+    .site-nav {
+      padding: 0.9rem 4vw;
+      background: var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .site-nav a {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .site-nav a:hover { color: #fff; }
+    .site-nav .home { color: rgba(255,255,255,0.9); }
+    .site-nav-links { display: flex; gap: 1.8rem; }
+
+    /* OUTER PAGE */
+    .page-wrap {
+      max-width: 800px;
+      margin: 3.5rem auto;
+      padding: 0 3vw 4rem;
+    }
+
+    /* DOCUMENT HEADER (catalogue reference) */
+    .doc-ref {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sepia);
+      margin-bottom: 1.8rem;
+      opacity: 0.7;
+    }
+
+    /* THE MANUSCRIPT PAGE */
+    .manuscript {
+      background: var(--parchment);
+      box-shadow:
+        0 2px 6px var(--shadow),
+        0 8px 30px var(--shadow-lg),
+        inset 0 0 80px rgba(180,140,80,0.12);
+      position: relative;
+      /* slight rotation for authenticity */
+      transform: rotate(-0.3deg);
+    }
+
+    /* left binding wear */
+    .manuscript::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 28px;
+      background: linear-gradient(to right, var(--parchment3) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* paper edge shadow */
+    .manuscript::after {
+      content: '';
+      position: absolute;
+      right: -6px; top: 6px;
+      bottom: -6px;
+      width: 6px;
+      background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
+      pointer-events: none;
+    }
+
+    /* RULED LINE PAPER */
+    .manuscript-inner {
+      padding: 3rem 3.5rem 3.5rem 4rem;
+      /* horizontal rules */
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent calc(1.9em - 1px),
+        rgba(180,140,80,0.25) calc(1.9em - 1px),
+        rgba(180,140,80,0.25) 1.9em
+      );
+      background-size: 100% 1.9em;
+      background-position: 0 3rem;
+    }
+
+    /* FOXING SPOTS (decorative aging) */
+    .foxing {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(120,80,20,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* HEADER WITHIN MANUSCRIPT */
+    .ms-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .ms-label {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .ms-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 0.4rem;
+    }
+
+    .ms-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--sepia);
+    }
+
+    /* TRANSCRIPTION NOTE */
+    .transcription-note {
+      background: var(--parchment2);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--muted);
+      padding: 0.8rem 1rem;
+      margin-bottom: 2rem;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.68rem;
+      color: var(--sepia);
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+    }
+
+    /* MANUSCRIPT TEXT */
+    .ms-body {
+      font-size: 1.02rem;
+      color: var(--ink-faded);
+      line-height: 1.9;
+    }
+
+    .ms-body p {
+      margin-bottom: 1.2em;
+      text-indent: 1.5em;
+    }
+
+    /* First paragraph no indent */
+    .ms-body p:first-of-type { text-indent: 0; }
+
+    /* Dialogue / quoted speech */
+    .ms-body blockquote {
+      margin: 1em 0 1em 2em;
+      font-style: italic;
+      color: var(--sepia);
+      border-left: none;
+    }
+
+    /* Spoken voices in the street */
+    .street-voices {
+      margin: 1.2em 0 1.2em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3em;
+    }
+
+    .street-voice {
+      font-style: italic;
+      color: var(--sepia);
+      font-size: 0.97rem;
+    }
+
+    .street-voice::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--muted);
+      line-height: 0;
+      vertical-align: -0.3em;
+      margin-right: 0.15em;
+    }
+
+    /* SIGNATURE BLOCK */
+    .ms-signature {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      text-align: right;
+    }
+
+    .signature-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .signature-address {
+      font-size: 0.85rem;
+      color: var(--sepia);
+      font-style: italic;
+    }
+
+    /* NAVIGATION */
+    .page-nav {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 0.4rem 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-btn:hover { background: var(--accent); color: #fff; }
+
+    .nav-centre {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      color: var(--sepia);
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+    .nav-centre a { color: var(--sepia); text-decoration: none; border-bottom: 1px dotted var(--rule); }
+    .nav-centre a:hover { color: var(--accent); }
+
+    /* FADE */
+    .fade-in { opacity: 0; transform: translateY(10px); animation: fadeUp 0.6s ease forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="../../index.html" class="home">Andreas Breidenthal</a>
+    <div class="site-nav-links">
+      <a href="index.html">Contents</a>
+      <a href="../../index.html">Archive</a>
+      <a href="https://github.com/andreas-breidenthal/friction-trilogy" target="_blank">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="page-wrap fade-in">
+
+    <div class="doc-ref">Operation Seamless · Transcript · BGI/ALD/2021/037</div>
+
+    <div class="manuscript">
+      <!-- Decorative foxing spots -->
+      <div class="foxing" style="width:60px;height:60px;top:8%;right:6%;"></div>
+      <div class="foxing" style="width:40px;height:40px;top:35%;left:4%;"></div>
+      <div class="foxing" style="width:80px;height:80px;bottom:15%;right:3%;"></div>
+      <div class="foxing" style="width:30px;height:30px;bottom:30%;left:8%;"></div>
+
+      <div class="manuscript-inner">
+
+        <div class="ms-header">
+          <div class="ms-label">Transcript of recovered manuscript · BGI/ALD/2021/037</div>
+          <div class="ms-title">The Aldgate Manuscript</div>
+          <div class="ms-subtitle">Testament of Thomas Alexander Davies · c. April–May 1889</div>
+        </div>
+
+        <div class="transcription-note">
+          [Archivist's note: The following is a full transcript of the handwritten document recovered on 9 April 2021 from 47 Aldgate High Street, London EC3. Minor transcription conventions applied. Original orthography preserved throughout.]
+        </div>
+
+        <div class="ms-body">
+
+          <p>I have kept this to myself for six months, believing it best not spoken. But I find I can no longer bear the silence.</p>
+
+          <p>I was present on the night PC Reeve and Sergeant Melrose lost their lives. The accounts given in the papers do not reflect what occurred.</p>
+
+          <p>The London Gazette called it "a shocking discovery." The Evening Standard said, "Jack the Ripper was unmasked — a police constable all along."</p>
+
+          <p>I heard of it from customers the following morning.</p>
+
+          <div class="street-voices">
+            <span class="street-voice">Reeve found dead. Stabbed. Lost his mind.</span>
+            <span class="street-voice">Melrose tried to stop him.</span>
+            <span class="street-voice">He carved his initials into her — J.T.R. — same as his name.</span>
+            <span class="street-voice">He signed it. Jack the Ripper.</span>
+          </div>
+
+          <p>I did not speak of it, neither to the police nor to others. My reasons for silence are explained below.</p>
+
+          <p>I witnessed the events directly. The man responsible was Percival Kerr, formerly Chief Inspector.</p>
+
+          <p>I am certain of what I saw. The circumstances of my presence are set out below.</p>
+
+          <p>At the time, certain details appeared unusual. It later became clear that the scene had been arranged to implicate PC Reeve.</p>
+
+          <p>I was engaged in unlawful activity at the time and would not have been considered a credible witness by the authorities.</p>
+
+          <p>My presence at the location was deliberate, owing to criminal intent.</p>
+
+          <p>On the evening of Sunday, 25 November 1888, after the public houses had closed and the streets were quiet, I went out intending to steal. The fog was thick over Bishopsgate. My destination was the Magpie, a public house on New Street, just off the main road.</p>
+
+          <p>The street was formerly called Hand Alley. Though renamed, the old name remained in common use.</p>
+
+          <p>I came in from Bishopsgate, climbed the wall, and positioned myself on the ledge above the front of the building, level with the first storey. I had brought an iron tool to break in through a window.</p>
+
+          <p>Before I began, I heard footsteps at the far end of the alley. I remained still. The person did not pass beneath me but halted near the corner.</p>
+
+          <p>The alley bends sharply at that point, with the Magpie situated on the corner. I moved along the ledge to get a better view.</p>
+
+          <p>From the ledge, I saw PC Reeve standing beside the body of Clara Fenwick. He was holding a lantern. I knew him by sight, having seen him on patrol before. The woman was unfamiliar to me at the time.</p>
+
+          <p>He placed the lantern on the ground and knelt beside the woman. At some point, he took up the locket.</p>
+
+          <p>He appeared to be examining the woman's injuries and comparing them to the engravings on the locket. I could not see clearly from my position, but reports the next day described the wounds in detail.</p>
+
+          <p>The exact sequence is unclear. At one point, Reeve reached for her arm and drew back holding a severed hand.</p>
+
+          <p>This is how he came to be in possession of the hand.</p>
+
+          <p>The scene appeared staged. The location, formerly known as Hand Alley, may have been chosen intentionally.</p>
+
+          <p>Sergeant Melrose arrived at the scene unexpectedly. I did not observe his approach, and Reeve appeared startled.</p>
+
+          <p>I did not see Melrose take the lantern, but only one was recovered, broken, the next morning. He was holding it when he stepped back after seeing the severed hand.</p>
+
+          <p>He fell, and the lantern struck the cobbles and broke. The flame went out, and the alley was left in darkness.</p>
+
+          <p>I recall clearly that a voice was heard shortly after the lantern broke. It was unfamiliar and came without warning.</p>
+
+          <p>At the time, I did not know who had spoken, but it was soon evident that the man was Percival Kerr, formerly Chief Inspector.</p>
+
+          <p>He lit a candle, and I recognised him by his appearance, which matched the likeness published in the papers upon his retirement.</p>
+
+          <p>It appeared he had been present throughout. He stood calmly and did not intervene.</p>
+
+          <p>Reeve spoke his name aloud, confirming his identity. Melrose also addressed him directly after regaining composure.</p>
+
+          <p>Reeve and Kerr spoke briefly, and their voices were raised.</p>
+
+          <p>The words later reported by the young witness, found by police in Rose Alley the next morning, were likely spoken during this exchange.</p>
+
+          <p>This detail was noted in the incident report and repeated in most of the papers.</p>
+
+          <p>The scene became disorderly. Kerr may have drawn a blade. The candle was extinguished during the struggle, and I could see little thereafter.</p>
+
+          <p>I cannot state the exact sequence of events that followed. However, I did observe Kerr standing over the bodies of Reeve and Melrose.</p>
+
+          <p>After Kerr left, I also departed. I did not attempt to determine whether either man was still alive.</p>
+
+          <p>I returned to the shop, secured the door, and went to my room. I remained awake, thinking of what I had seen.</p>
+
+          <p>In the morning, I heard movement downstairs. News of the incident had begun to circulate.</p>
+
+          <p>Customers and passers-by spoke of it — fragments of conversation overheard throughout the day.</p>
+
+          <p>I knew the published accounts were inaccurate, but I was a thief, present unlawfully at the scene.</p>
+
+          <p>Had I approached the authorities, suspicion would likely have fallen on me. I possessed no evidence and therefore remained silent.</p>
+
+          <p>I have not forgotten what occurred: Reeve accused in error, Melrose killed while intervening, and Kerr leaving the scene unchallenged.</p>
+
+          <p>I did not speak at the time and do not expect to be believed now. But silence has become more difficult to bear than the risk of disbelief. I am unable to present this account in person, and so I leave it to be found after I am gone, in the hope that it may correct the record.</p>
+
+        </div>
+
+        <div class="ms-signature">
+          <div class="signature-name">Thomas Alexander Davies</div>
+          <div class="signature-address">47 Aldgate High Street, London</div>
+        </div>
+
+      </div>
+    </div><!-- /manuscript -->
+
+    <!-- NAVIGATION -->
+    <div class="page-nav">
+      <a href="aldgate-archivists-note.html" class="nav-btn">← Archivist's Note</a>
+      <div class="nav-centre">
+        <a href="index.html">↑ Contents</a>
+      </div>
+      <a href="beyond-the-fog.html" class="nav-btn">Beyond the Fog →</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
