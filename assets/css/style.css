@@ -1,8 +1,0 @@
-/* Base settings */
-body { margin: 0; padding: 0; background: #eee; }
-article { max-width: 800px; margin: 40px auto; padding: 50px; background: white; }
-
-/* Styles you can trigger in your Markdown files */
-.manuscript { font-family: "Georgia", serif; line-height: 1.8; color: #333; }
-.academic   { font-family: "Helvetica", sans-serif; line-height: 1.5; }
-.bureaucratic { font-family: "Courier", monospace; background: #f9f9f9; }
