@@ -1,2 +1,2 @@
 # operation-seamless
-A Victorian dossier on the systematic erasure of a murder in 1888
+A fictional Victorian dossier on the systematic erasure of a murder in 1888
