@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archivist's Note — BGI/SWF/2023/041 · Operation Seamless</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;1,300;1,400&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--form-bg:#f0ece2;--form-dark:#e2ddd0;--page-bg:#ddd8cc;--ink:#1a1612;--ink-faded:#4a4438;--muted:#7a7060;--rule:#bdb5a0;--accent:#2a3a5a;--red-stamp:#8a1a0a;--shadow:rgba(26,22,18,.18);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--page-bg);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;font-size:15px;line-height:1.6;min-height:100vh;padding:0 0 4rem;}
+    .site-nav{padding:.9rem 4vw;background:var(--accent);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;position:sticky;top:0;z-index:100;}
+    .site-nav a{font-family:'Inconsolata',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s;}
+    .site-nav a:hover{color:#fff;} .site-nav .home{color:rgba(255,255,255,.9);}
+    .site-nav-links{display:flex;gap:1.8rem;}
+    .folder-wrap{max-width:860px;margin:3rem auto;padding:0 3vw;}
+    .institution-header{background:var(--accent);color:#fff;padding:1.4rem 2rem;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap;}
+    .institution-name{font-family:'Inconsolata',monospace;font-size:1rem;letter-spacing:.06em;font-weight:500;line-height:1.3;}
+    .institution-sub{font-family:'Inconsolata',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-top:.3rem;}
+    .accession-block{text-align:right;}
+    .accession-label{font-family:'Inconsolata',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;opacity:.55;}
+    .accession-code{font-family:'Inconsolata',monospace;font-size:1.05rem;font-weight:500;letter-spacing:.06em;margin-top:.2rem;}
+    .form-body{background:var(--form-bg);border:1px solid var(--rule);box-shadow:0 4px 20px var(--shadow);}
+    .form-title-bar{background:var(--form-dark);border-bottom:2px solid var(--rule);padding:1rem 2rem;display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+    .form-title{font-family:'Inconsolata',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+    .form-doc-title{font-family:'Source Serif 4',serif;font-size:1.1rem;font-style:italic;color:var(--ink);}
+    .form-section{padding:1.4rem 2rem;border-bottom:1px solid var(--rule);}
+    .form-section:last-of-type{border-bottom:none;}
+    .section-label{font-family:'Inconsolata',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid var(--rule);}
+    .field-row{display:grid;grid-template-columns:180px 1fr;gap:.5rem 1.5rem;padding:.45rem 0;border-bottom:1px dotted var(--rule);align-items:baseline;}
+    .field-row:last-child{border-bottom:none;}
+    .field-label{font-family:'Inconsolata',monospace;font-size:.7rem;letter-spacing:.06em;color:var(--muted);}
+    .field-value{font-size:.9rem;color:var(--ink-faded);line-height:1.5;}
+    .field-value em{font-style:italic;} .field-value strong{font-weight:600;color:var(--ink);}
+    .form-prose{font-size:.9rem;color:var(--ink-faded);line-height:1.7;}
+    .form-prose p+p{margin-top:.7rem;}
+    .form-list{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+    .form-list li{display:grid;grid-template-columns:180px 1fr;gap:.5rem 1.5rem;padding:.3rem 0;border-bottom:1px dotted var(--rule);font-size:.9rem;}
+    .form-list li:last-child{border-bottom:none;}
+    .fl-label{font-family:'Inconsolata',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.05em;}
+    .fl-value{color:var(--ink-faded);}
+    .condition-tag{display:inline-block;font-family:'Inconsolata',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border:1px solid var(--rule);color:var(--muted);margin:.2rem .2rem 0 0;}
+    .content-list{list-style:none;padding-left:0;}
+    .content-list li{font-size:.9rem;color:var(--ink-faded);padding:.3rem 0;border-bottom:1px dotted var(--rule);padding-left:1em;}
+    .content-list li::before{content:'–';margin-right:.5em;color:var(--muted);}
+    .content-list li em{font-style:italic;}
+    .stamp-row{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;padding:1.4rem 2rem;background:var(--form-dark);border-top:2px solid var(--rule);flex-wrap:wrap;}
+    .access-stamp{border:2px solid var(--red-stamp);padding:.4rem 1rem;display:inline-block;transform:rotate(-1.5deg);}
+    .access-stamp span{font-family:'Inconsolata',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red-stamp);font-weight:500;}
+    .restriction-note{font-family:'Inconsolata',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.05em;line-height:1.6;max-width:400px;}
+    .chapter-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;}
+    .nav-btn{font-family:'Inconsolata',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-decoration:none;border:1px solid var(--accent);padding:.45rem 1.1rem;transition:background .2s,color .2s;}
+    .nav-btn:hover{background:var(--accent);color:#fff;}
+    .nav-centre{font-family:'Inconsolata',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em;text-align:center;}
+    .nav-centre a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--rule);}
+    .nav-centre a:hover{color:var(--accent);}
+    .fade-in{opacity:0;transform:translateY(10px);animation:fadeUp .55s ease forwards;}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+  </style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="../../index.html" class="home">Andreas Breidenthal</a>
+  <div class="site-nav-links"><a href="index.html">Contents</a><a href="../../index.html">Archive</a></div>
+</nav>
+<div class="folder-wrap fade-in">
+  <div class="institution-header">
+    <div>
+      <div class="institution-name">Bishopsgate Institute</div>
+      <div class="institution-sub">Archive &amp; Special Collections &middot; London EC2A 4BH</div>
+    </div>
+    <div class="accession-block">
+      <div class="accession-label">Accession Reference</div>
+      <div class="accession-code">BGI/SWF/2023/041</div>
+    </div>
+  </div>
+  <div class="form-body">
+    <div class="form-title-bar">
+      <span class="form-title">Catalogue Entry / Archivist's Description</span>
+      <span class="form-doc-title">Swift's Account and Document Cache</span>
+    </div>
+    <div class="form-section">
+      <div class="section-label">&sect; 1 &mdash; Identity Statement</div>
+      <div class="field-row"><span class="field-label">Reference Code</span><span class="field-value"><strong>BGI/SWF/2023/041</strong></span></div>
+      <div class="field-row"><span class="field-label">Title</span><span class="field-value"><em>Swift's Account and Document Cache</em></span></div>
+      <div class="field-row"><span class="field-label">Date(s) of Creation</span><span class="field-value">c. 1888&ndash;1901 (creation); 18 August 2023 (accession)</span></div>
+      <div class="field-row"><span class="field-label">Level of Description</span><span class="field-value">Collection</span></div>
+      <div class="field-row"><span class="field-label">Extent and Medium</span><span class="field-value">10 items; mixed media (manuscript, correspondence, official forms, newsprint)</span></div>
+    </div>
+    <div class="form-section">
+      <div class="section-label">&sect; 2 &mdash; Acquisition Details</div>
+      <div class="field-row"><span class="field-label">Date of Acquisition</span><span class="field-value">18 August 2023</span></div>
+      <div class="field-row"><span class="field-label">Source</span><span class="field-value">Recovered during renovation works at 60 Tower Hamlets Road, West Ham E13</span></div>
+      <div class="field-row"><span class="field-label">Method</span><span class="field-value">Discovered within a purpose-built cavity beneath the understair cupboard; bundle wrapped in waxed cloth and bound with twine</span></div>
+      <div class="field-row"><span class="field-label">Accession Number</span><span class="field-value">BGI/SWF/2023/041</span></div>
+    </div>
+    <div class="form-section">
+      <div class="section-label">&sect; 3 &mdash; Provenance</div>
+      <div class="form-prose"><p>Recovered from a late Victorian residential property at 60 Tower Hamlets Road, West Ham. Materials were concealed within a constructed void beneath the stairwell. No prior record of archival deposit or private collection was associated with the property.</p></div>
+    </div>
+    <div class="form-section">
+      <div class="section-label">&sect; 4 &mdash; Physical Description</div>
+      <p style="font-family:'Inconsolata',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.05em;margin-bottom:.8rem;">Contents:</p>
+      <ul class="content-list">
+        <li><em>Swift's Account</em> &mdash; 42-page first-person manuscript attributed internally to Henry Swift</li>
+        <li>Draft outline of "Operation Seamless"</li>
+        <li>Unsent draft letter addressed to James Harvey</li>
+        <li>Incident report (City of London Police)</li>
+        <li>Internal memorandum (Bishopsgate Division)</li>
+        <li>Newspaper clipping (<em>The Illustrated Police News</em>)</li>
+        <li>Erasure targets list</li>
+        <li>Personal notebook extract</li>
+        <li>Retrieval progress log (fragment)</li>
+        <li>Carte blanche letter (Home Office)</li>
+      </ul>
+      <div style="margin-top:1rem;">
+        <div class="field-row"><span class="field-label">Materials</span><span class="field-value">Medium-weight laid paper; onion-skin paper; newsprint; iron gall and carbon pencil inks</span></div>
+        <div class="field-row"><span class="field-label">Condition</span><span class="field-value"><span class="condition-tag">Foxing</span><span class="condition-tag">Edge wear</span><span class="condition-tag">Creasing</span><span class="condition-tag">Water damage (some items)</span><span class="condition-tag">Multiple hands</span></span></div>
+      </div>
+    </div>
+    <div class="form-section">
+      <div class="section-label">&sect; 5 &mdash; Scope and Content</div>
+      <div class="form-prose"><p>Collection comprising a first-person narrative attributed to Henry Swift and nine associated documents dated between November 1888 and late 1901. The materials refer to recordkeeping practices, institutional access, and an operation termed &ldquo;Operation Seamless.&rdquo; The narrative recounts the author's early life, presence near an incident in Bishopsgate on 25 November 1888, and subsequent attempts to locate records and individuals. Physical characteristics and institutional references are consistent with the period; the historical claims are unverified.</p></div>
+    </div>
+    <div class="form-section">
+      <div class="section-label">&sect; 6 &mdash; Biographical / Historical Note</div>
+      <div class="form-prose"><p>No verified record for Henry Swift has been located in surviving census or civil registers. The manuscript describes the author as a foundling who later worked as a junior clerk at the General Register Office. The collection references James Harvey, a City of London Police constable recorded as dismissed in July 1889, and Dr Thomas Bond, whose death in 1901 is documented.</p></div>
+    </div>
+    <div class="form-section">
+      <div class="section-label">&sect; 7 &mdash; Conservation and Handling</div>
+      <ul class="form-list">
+        <li><span class="fl-label">Stabilisation</span><span class="fl-value">Stabilised and air-dried under controlled conditions following recovery</span></li>
+        <li><span class="fl-label">Storage</span><span class="fl-value">Housed in acid-free folders within a humidity-controlled unit</span></li>
+        <li><span class="fl-label">Transcript</span><span class="fl-value">Full transcript prepared; high-resolution digital imaging in progress</span></li>
+        <li><span class="fl-label">Handling</span><span class="fl-value">Handle with nitrile gloves; support cradle recommended for the manuscript</span></li>
+      </ul>
+    </div>
+    <div class="stamp-row">
+      <div class="access-stamp"><span>Open for Research</span></div>
+      <div class="restriction-note">Access under supervised conditions.<br>No forensic testing undertaken; further analysis may be required to confirm origin and authorship.<br>Reproduction subject to Bishopsgate Institute permissions and copyright policy.</div>
+    </div>
+  </div>
+  <nav class="chapter-nav">
+    <a href="beyond-the-fog.html" class="nav-btn">&larr; Beyond the Fog</a>
+    <div class="nav-centre"><a href="index.html">&uarr; Contents</a></div>
+    <a href="swifts-account-ch1.html" class="nav-btn">Swift&rsquo;s Account &rarr;</a>
+  </nav>
+</div>
+</body>
+</html>
