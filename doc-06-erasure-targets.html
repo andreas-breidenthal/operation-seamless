@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erasure Targets List · Operation Seamless</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Inconsolata:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+  :root{--parchment:#f2e8d5;--parchment2:#ede0c4;--page-bg:#c8b89a;--ink:#2a1f0e;--ink-faded:#3d2f18;--sepia:#6b4f2a;--muted:#9a7a50;--rule:#c0a878;--accent:#2a3a5a;--shadow:rgba(42,31,14,.25);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--page-bg);color:var(--ink);font-family:'Newsreader',Georgia,serif;font-size:16px;line-height:1.85;min-height:100vh;}
+  .site-nav{padding:.9rem 4vw;background:var(--accent);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;position:sticky;top:0;z-index:100;}
+  .site-nav a{font-family:'Inconsolata',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;}
+  .site-nav a:hover{color:#fff;} .site-nav .home{color:rgba(255,255,255,.9);}
+  .site-nav-links{display:flex;gap:1.8rem;}
+  .page-wrap{max-width:780px;margin:3rem auto;padding:0 3vw 4rem;}
+  .doc-label{font-family:'Inconsolata',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sepia);margin-bottom:1.5rem;opacity:.75;display:flex;align-items:center;gap:1rem;}
+  .doc-label::after{content:'';flex:1;height:1px;background:var(--rule);}
+  .doc-card{background:var(--parchment);box-shadow:0 2px 6px var(--shadow),0 8px 30px rgba(42,31,14,.3);position:relative;overflow:visible;}
+  .doc-card::after{content:'';position:absolute;right:-7px;top:7px;bottom:-7px;width:7px;background:linear-gradient(to right,rgba(0,0,0,.18),transparent);pointer-events:none;}
+  .foxing{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(120,80,20,.1) 0%,transparent 70%);pointer-events:none;}
+  .doc-inner{padding:3rem 3.5rem;}
+  .doc-header{border-bottom:2px solid var(--rule);padding-bottom:1.2rem;margin-bottom:2rem;}
+  .doc-type{font-family:'Inconsolata',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+  .doc-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--ink);line-height:1.3;}
+  .doc-meta{font-size:.85rem;color:var(--sepia);font-style:italic;margin-top:.3rem;}
+  .doc-body{font-size:1rem;color:var(--ink-faded);line-height:1.85;}
+  .doc-body p{margin-bottom:1em;} .doc-body em{font-style:italic;}
+  .doc-annotation{margin-top:2rem;padding:1rem 1.2rem;background:var(--parchment2);border-left:3px solid var(--muted);font-family:'Inconsolata',monospace;font-size:.72rem;color:var(--sepia);line-height:1.6;}
+  .doc-annotation-label{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+  .doc-annotation p{margin-bottom:.4em;}
+  .typewritten{font-family:'Special Elite',serif;font-size:.9rem;line-height:1.8;letter-spacing:.02em;}
+  .field-grid{display:grid;grid-template-columns:160px 1fr;gap:.4rem 1rem;font-size:.88rem;margin-bottom:1.2rem;}
+  .fl{font-family:'Inconsolata',monospace;font-size:.72rem;color:var(--muted);letter-spacing:.04em;}
+  .stamp{display:inline-block;border:2px solid #7a2010;padding:.3rem .8rem;font-family:'Inconsolata',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#7a2010;transform:rotate(-1.5deg);margin:1.5rem 0;}
+  .checklist{list-style:none;margin:0;padding:0;}
+  .checklist li{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.4em;font-family:'Inconsolata',monospace;font-size:.82rem;color:var(--sepia);}
+  .checklist .tick{color:#2a5a2a;font-size:1rem;flex-shrink:0;}
+  .news-masthead{text-align:center;border-bottom:3px double var(--rule);padding-bottom:1rem;margin-bottom:1.5rem;}
+  .news-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+  .news-subtitle{font-family:'Inconsolata',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.3rem;}
+  .news-date{font-family:'Inconsolata',monospace;font-size:.68rem;color:var(--muted);margin-top:.5rem;}
+  .news-headline{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--ink);text-transform:uppercase;letter-spacing:.03em;margin:1rem 0 .5rem;text-align:center;}
+  .news-subhead{font-size:.9rem;text-align:center;font-style:italic;color:var(--sepia);margin-bottom:1.2rem;}
+  .targets-block{margin-top:1.2rem;}
+  .targets-label{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);border-bottom:1px solid var(--rule);padding-bottom:.4rem;margin-bottom:.8rem;}
+  .target-entry{padding:.6rem 0;border-bottom:1px dotted var(--rule);}
+  .target-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--ink);}
+  .target-notes{font-size:.85rem;color:var(--sepia);margin-top:.2rem;padding-left:.8rem;border-left:2px solid var(--rule);}
+  .target-notes p{margin-bottom:.2em;}
+  .notebook-rule{border:none;border-top:1px solid rgba(180,140,80,.4);margin:0;}
+  .notebook-line{min-height:1.9em;padding:.15em 0;border-bottom:1px solid rgba(180,140,80,.3);font-family:'Newsreader',serif;}
+  .progress-row{display:grid;grid-template-columns:1fr 140px;gap:.5rem 1.5rem;padding:.5rem 0;border-bottom:1px dotted var(--rule);font-size:.88rem;align-items:baseline;}
+  .prog-inst{font-family:'Inconsolata',monospace;font-size:.7rem;color:var(--muted);}
+  .prog-date{font-family:'Inconsolata',monospace;font-size:.72rem;color:var(--sepia);text-align:right;}
+  .prog-item{color:var(--ink-faded);}
+  .ho-watermark{text-align:right;font-family:'Inconsolata',monospace;font-size:.6rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:1rem;}
+  .sig-block{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--rule);text-align:right;}
+  .sig-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--ink);}
+  .sig-title{font-size:.82rem;color:var(--sepia);}
+  .chapter-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:3rem;}
+  .nav-btn{font-family:'Inconsolata',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-decoration:none;border:1px solid var(--accent);padding:.45rem 1.1rem;transition:background .2s,color .2s;}
+  .nav-btn:hover{background:var(--accent);color:#fff;}
+  .nav-centre{font-family:'Inconsolata',monospace;font-size:.65rem;color:var(--sepia);letter-spacing:.08em;text-align:center;}
+  .nav-centre a{color:var(--sepia);text-decoration:none;border-bottom:1px dotted var(--rule);}
+  .nav-centre a:hover{color:var(--accent);}
+  .fade-in{opacity:0;transform:translateY(10px);animation:fadeUp .55s ease forwards;}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="../../index.html" class="home">Andreas Breidenthal</a>
+  <div class="site-nav-links"><a href="index.html">Contents</a><a href="../../index.html">Archive</a></div>
+</nav>
+<div class="page-wrap fade-in">
+  <div class="doc-label">Swift's Document Cache · BGI/SWF/2023/041 · Document 6 of 9</div>
+  <div class="doc-card">
+    <div class="foxing" style="width:55px;height:55px;top:5%;right:4%;"></div>
+    <div class="foxing" style="width:40px;height:40px;bottom:15%;left:3%;"></div>
+    <div class="doc-inner">
+<div class="doc-header">
+  <div class="doc-type">Internal Document &middot; Handwritten in Iron Gall Ink &middot; Red Underlining in Wax Pencil</div>
+  <div class="doc-title"><u>Erasure Targets</u></div>
+</div>
+<div class="doc-body">
+  <div class="targets-block">
+    <div class="targets-label">Primary Individuals</div>
+    <p style="font-size:.82rem;font-style:italic;color:var(--muted);margin-bottom:1rem;">To be removed from all registries, archives, and correspondence. No record shall remain. No inquiry shall succeed.</p>
+
+    <div class="target-entry">
+      <div class="target-name">PC James Thomas Reeve</div>
+      <div class="target-notes">
+        <p>Identified as principal in the New Street incident.</p>
+        <p>Expunge from all police rosters, duty logs, commendation records, and pension files.</p>
+        <p>Remove from census entries, electoral rolls, and burial registers.</p>
+        <p>Eliminate all press mentions, internal memoranda, and correspondence.</p>
+      </div>
+    </div>
+
+    <div class="target-entry">
+      <div class="target-name">Sergeant Arthur Melrose</div>
+      <div class="target-notes">
+        <p>Deceased in attempted apprehension.</p>
+        <p>Remove from assignment orders, disciplinary logs, and commendation lists.</p>
+        <p>Erase from coroner&rsquo;s findings, parish records, and obituary notices.</p>
+      </div>
+    </div>
+
+    <div class="target-entry">
+      <div class="target-name">Miss Clara Fenwick</div>
+      <div class="target-notes">
+        <p>Final victim.</p>
+        <p>Erase from workhouse admissions, hospital records, and inquest findings.</p>
+        <p>Remove from parish rolls, burial notices, and charitable registries.</p>
+      </div>
+    </div>
+
+    <div class="target-entry">
+      <div class="target-name">P. Kerr</div>
+      <div class="target-notes">
+        <p>Former Chief Inspector.</p>
+        <p>Remove from all police service records, promotion certificates, and internal correspondence.</p>
+        <p>Expunge from Home Office files, retirement papers, and census entries.</p>
+        <p>No obituary. No memoir. No trace.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="targets-block" style="margin-top:1.5rem;">
+    <div class="targets-label">Secondary Considerations</div>
+    <p style="font-size:.82rem;font-style:italic;color:var(--muted);margin-bottom:1rem;">To be monitored. Action discretionary.</p>
+
+    <div class="target-entry">
+      <div class="target-name">Child Witness (Male)</div>
+      <div class="target-notes">
+        <p>Present in Rose Alley on the night of 25 November.</p>
+        <p>Provided verbal account implicating Reeve.</p>
+        <p>Identity unknown. No further action unless rediscovered.</p>
+      </div>
+    </div>
+
+    <div class="target-entry">
+      <div class="target-name">PC James Harvey</div>
+      <div class="target-notes">
+        <p>Reporting officer. Dismissal executed. Relocated.</p>
+        <p>No further action unless disclosure occurs.</p>
+      </div>
+    </div>
+
+    <div class="target-entry">
+      <div class="target-name">Dr Thomas Bond</div>
+      <div class="target-notes">
+        <p>Provided indirect assistance.</p>
+        <p>Monitor for signs of instability or confession.</p>
+      </div>
+    </div>
+  </div>
+</div></div>
+  </div>
+  <nav class="chapter-nav">
+    <a href="Document 5" class="nav-btn">&larr; doc-05-clipping.html</a>
+    <div class="nav-centre"><a href="index.html">&uarr; Contents</a></div>
+    <a href="Document 7" class="nav-btn">doc-07-notebook.html &rarr;</a>
+  </nav>
+</div>
+</body>
+</html>
