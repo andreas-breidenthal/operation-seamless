@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Railway and the Routine · Invisible Martyr · Operation Seamless</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+  :root{--parchment:#f2e8d5;--parchment2:#ede0c4;--parchment3:#e4d4ad;--page-bg:#c8b89a;
+        --ink:#2a1f0e;--ink-faded:#3d2f18;--sepia:#6b4f2a;--muted:#9a7a50;--rule:#c0a878;
+        --accent:#2a3a5a;--shadow:rgba(42,31,14,.25);--shadow-lg:rgba(42,31,14,.35);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--page-bg);color:var(--ink);font-family:'Newsreader',Georgia,serif;font-size:16px;line-height:1.9;min-height:100vh;}
+  .site-nav{padding:.9rem 4vw;background:var(--accent);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;position:sticky;top:0;z-index:100;}
+  .site-nav a{font-family:'Inconsolata',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s;}
+  .site-nav a:hover{color:#fff;} .site-nav .home{color:rgba(255,255,255,.9);}
+  .site-nav-links{display:flex;gap:1.8rem;}
+  .page-wrap{max-width:800px;margin:3.5rem auto;padding:0 3vw 4rem;}
+  .doc-ref{font-family:'Inconsolata',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sepia);margin-bottom:1.8rem;opacity:.7;}
+  .manuscript{background:var(--parchment);box-shadow:0 2px 6px var(--shadow),0 8px 30px var(--shadow-lg),inset 0 0 80px rgba(180,140,80,.12);position:relative;transform:rotate(-0.3deg);}
+  .manuscript::before{content:'';position:absolute;left:0;top:0;bottom:0;width:28px;background:linear-gradient(to right,var(--parchment3) 0%,transparent 100%);pointer-events:none;}
+  .manuscript::after{content:'';position:absolute;right:-6px;top:6px;bottom:-6px;width:6px;background:linear-gradient(to right,rgba(0,0,0,.2),transparent);pointer-events:none;}
+  .manuscript-inner{padding:3rem 3.5rem 3.5rem 4rem;background-image:repeating-linear-gradient(transparent,transparent calc(1.9em - 1px),rgba(180,140,80,.25) calc(1.9em - 1px),rgba(180,140,80,.25) 1.9em);background-size:100% 1.9em;background-position:0 3rem;}
+  .foxing{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(120,80,20,.12) 0%,transparent 70%);pointer-events:none;}
+  .ms-header{text-align:center;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule);}
+  .ms-label{font-family:'Inconsolata',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;}
+  .ms-chapter{font-family:'Cormorant Garamond',serif;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+  .ms-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:400;color:var(--ink);line-height:1.3;margin-bottom:.3rem;}
+  .ms-date{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:var(--sepia);}
+  .transcription-note{background:var(--parchment2);border:1px solid var(--rule);border-left:3px solid var(--muted);padding:.8rem 1rem;margin-bottom:2rem;font-family:'Inconsolata',monospace;font-size:.68rem;color:var(--sepia);letter-spacing:.04em;line-height:1.5;}
+  .ms-body{font-size:1.02rem;color:var(--ink-faded);line-height:1.9;}
+  .ms-body p{margin-bottom:1.2em;text-indent:1.5em;}
+  .ms-body p:first-of-type{text-indent:0;}
+  .ms-body em{font-style:italic;}
+  .ms-body .scene-break{text-align:center;color:var(--muted);margin:1.5em 0;font-family:'Cormorant Garamond',serif;font-size:1.2rem;letter-spacing:.2em;}
+  .ms-signature{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);text-align:right;}
+  .signature-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:var(--ink);margin-bottom:.3rem;}
+  .signature-address{font-size:.85rem;color:var(--sepia);font-style:italic;}
+  .chapter-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:3rem;}
+  .nav-btn{font-family:'Inconsolata',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-decoration:none;border:1px solid var(--accent);padding:.45rem 1.1rem;transition:background .2s,color .2s;}
+  .nav-btn:hover{background:var(--accent);color:#fff;}
+  .nav-btn.ghost{color:var(--rule);border-color:var(--rule);pointer-events:none;}
+  .nav-centre{font-family:'Inconsolata',monospace;font-size:.65rem;color:var(--sepia);letter-spacing:.08em;text-align:center;}
+  .nav-centre a{color:var(--sepia);text-decoration:none;border-bottom:1px dotted var(--rule);}
+  .nav-centre a:hover{color:var(--accent);}
+  .fade-in{opacity:0;transform:translateY(10px);animation:fadeUp .55s ease forwards;}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="../../index.html" class="home">Andreas Breidenthal</a>
+  <div class="site-nav-links"><a href="index.html">Contents</a><a href="../../index.html">Archive</a></div>
+</nav>
+<div class="page-wrap fade-in">
+  <div class="doc-ref">Operation Seamless · Invisible Martyr · BGI/RLS/2025/052</div>
+  <div class="manuscript">
+    <div class="foxing" style="width:60px;height:60px;top:8%;right:6%;"></div>
+    <div class="foxing" style="width:40px;height:40px;top:35%;left:4%;"></div>
+    <div class="foxing" style="width:70px;height:70px;bottom:18%;right:3%;"></div>
+    <div class="manuscript-inner">
+      <div class="ms-header">
+        <div class="ms-label">Invisible Martyr — Transcript · BGI/RLS/2025/052</div>
+        <div class="ms-chapter">Chapter 2</div>
+        <div class="ms-title">The Railway and the Routine</div>
+        <div class="ms-date">Chigwell — 1885 to 1888</div>
+      </div>
+      
+      <div class="ms-body">
+
+<p>In those final years of service, my journey to Bishopsgate became a ritual.</p>
+<p>Each morning, I departed Rolls House at precisely six forty-five. The walk to Woodford station took twenty minutes, longer in winter when the frost clung to the hedgerows and the mist hung low over the fields. I preferred the solitude. It allowed for thought, and thought was the foundation of order.</p>
+<p>The train to Liverpool Street was punctual more often than not. The Great Eastern Railway, for all its imperfections, maintained a certain reliability. I always sat in the second carriage from the front, on the left-hand side, facing forward. From there, I could observe the gradual transition &mdash; from the quiet of Essex to the pulse of London.</p>
+<p>The journey took thirty-seven minutes. I used the time to read the morning circulars or review my notes. Occasionally, I would glance out the window and watch the city unfold: allotments giving way to terraces, terraces to warehouses, warehouses to spires and smoke.</p>
+<p>Routine was not merely habit. It was discipline. It was the scaffolding upon which clarity was built. In the force, clarity was everything.</p>
+<p>I kept my own records, separate from the official ledgers. Not out of distrust, but out of necessity. I noted patterns, anomalies, names that reappeared too often or vanished too quickly. I did not speculate. I observed.</p>
+<p>The return journey was no less structured. I departed Bishopsgate at five-thirty, boarded the six o&rsquo;clock train, and arrived at Woodford just before seven.</p>
+<p>Rolls House welcomed me with silence. The fire was laid before I left each morning. The study was always in order. I dined alone, read until nine, and retired by ten.</p>
+<p>It was a quiet life, but not an idle one. The city remained close enough to touch, yet distant enough to forget. I had earned that distance.</p>
+      </div>
+      
+    </div>
+  </div>
+  <nav class="chapter-nav">
+  <a href="Chapter 1" class="nav-btn">&larr; im-ch1.html</a>
+  <div class="nav-centre"><a href="index.html">&uarr; Contents</a></div>
+  <a href="Chapter 3" class="nav-btn">im-ch3.html &rarr;</a>
+</nav>
+</div>
+</body>
+</html>
