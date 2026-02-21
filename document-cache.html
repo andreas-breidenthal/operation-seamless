@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Cache · Operation Seamless</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--page-bg:#c8b89a;--parchment:#f2e8d5;--parchment2:#ede0c4;--ink:#2a1f0e;--sepia:#6b4f2a;--muted:#9a7a50;--rule:#c0a878;--accent:#2a3a5a;--shadow:rgba(42,31,14,.25);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--page-bg);color:var(--ink);font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;line-height:1.7;min-height:100vh;}
+    .site-nav{padding:.9rem 4vw;background:var(--accent);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;position:sticky;top:0;z-index:100;}
+    .site-nav a{font-family:'Inconsolata',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;}
+    .site-nav a:hover{color:#fff;} .site-nav .home{color:rgba(255,255,255,.9);}
+    .site-nav-links{display:flex;gap:1.8rem;}
+    .page-wrap{max-width:740px;margin:3rem auto;padding:0 3vw 4rem;}
+    .cache-card{background:var(--parchment);box-shadow:0 2px 6px var(--shadow),0 8px 30px rgba(42,31,14,.3);padding:3rem 3.5rem;position:relative;}
+    .cache-card::after{content:'';position:absolute;right:-7px;top:7px;bottom:-7px;width:7px;background:linear-gradient(to right,rgba(0,0,0,.18),transparent);pointer-events:none;}
+    .cache-label{font-family:'Inconsolata',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+    h1{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:400;color:var(--ink);margin-bottom:.3rem;}
+    .cache-ref{font-family:'Inconsolata',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.08em;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--rule);}
+    .intro{font-size:.95rem;color:var(--sepia);line-height:1.8;margin-bottom:2rem;font-style:italic;}
+    .doc-list{list-style:none;}
+    .doc-list li{border-bottom:1px solid var(--rule);}
+    .doc-list li:last-child{border-bottom:none;}
+    .doc-link{display:grid;grid-template-columns:2.5rem 1fr 6rem;gap:.5rem 1rem;padding:1rem 0;text-decoration:none;align-items:baseline;transition:background .15s;}
+    .doc-link:hover{background:var(--parchment2);padding-left:.5rem;margin:0 -.5rem;}
+    .doc-num{font-family:'Inconsolata',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.06em;}
+    .doc-title-txt{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--ink);}
+    .doc-type-tag{font-family:'Inconsolata',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:.1rem .4rem;justify-self:end;}
+    .doc-subtitle{font-size:.8rem;color:var(--sepia);font-style:italic;grid-column:2;margin-top:.1rem;}
+    .chapter-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:3rem;}
+    .nav-btn{font-family:'Inconsolata',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-decoration:none;border:1px solid var(--accent);padding:.45rem 1.1rem;transition:background .2s,color .2s;}
+    .nav-btn:hover{background:var(--accent);color:#fff;}
+    .nav-centre{font-family:'Inconsolata',monospace;font-size:.65rem;color:var(--sepia);letter-spacing:.08em;text-align:center;}
+    .nav-centre a{color:var(--sepia);text-decoration:none;border-bottom:1px dotted var(--rule);}
+    .nav-centre a:hover{color:var(--accent);}
+    .fade-in{opacity:0;transform:translateY(10px);animation:fadeUp .55s ease forwards;}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+  </style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="../../index.html" class="home">Andreas Breidenthal</a>
+  <div class="site-nav-links"><a href="index.html">Contents</a><a href="../../index.html">Archive</a></div>
+</nav>
+<div class="page-wrap fade-in">
+<div class="cache-card">
+  <div class="cache-label">Operation Seamless &middot; First Cache (West Ham 2023)</div>
+  <h1>Document Cache</h1>
+  <div class="cache-ref">BGI/SWF/2023/041 &nbsp;&middot;&nbsp; Nine supplementary items &nbsp;&middot;&nbsp; Recovered 18 August 2023</div>
+  <p class="intro">The following nine documents were recovered alongside Swift&rsquo;s Account from the concealed cavity at 60 Tower Hamlets Road. Each was selected by Swift from Kerr&rsquo;s private archive at Rolls House on the night of his entry. They are presented here in the order Swift catalogued them.</p>
+  <ul class="doc-list">
+    <li><a href="doc-01-outline.html" class="doc-link">
+      <span class="doc-num">I</span>
+      <span><span class="doc-title-txt">Operation Seamless &ndash; Draft Outline</span>
+      <span class="doc-subtitle">Blueprint for erasure &middot; &ldquo;For My Eyes Only&rdquo;</span></span>
+      <span class="doc-type-tag">Planning Doc</span>
+    </a></li>
+    <li><a href="doc-02-harvey-letter.html" class="doc-link">
+      <span class="doc-num">II</span>
+      <span><span class="doc-title-txt">Private Letter to James Harvey</span>
+      <span class="doc-subtitle">Unsent draft &middot; Annotated by Kerr on reverse</span></span>
+      <span class="doc-type-tag">Correspondence</span>
+    </a></li>
+    <li><a href="doc-03-incident-report.html" class="doc-link">
+      <span class="doc-num">III</span>
+      <span><span class="doc-title-txt">Incident Report &mdash; New Street Murders</span>
+      <span class="doc-subtitle">City of London Police &middot; 26 November 1888</span></span>
+      <span class="doc-type-tag">Police Form</span>
+    </a></li>
+    <li><a href="doc-04-memorandum.html" class="doc-link">
+      <span class="doc-num">IV</span>
+      <span><span class="doc-title-txt">Internal Memorandum, Bishopsgate Division</span>
+      <span class="doc-subtitle">Confidential &middot; 27 November 1888 &middot; Annotated with leak instruction</span></span>
+      <span class="doc-type-tag">Memorandum</span>
+    </a></li>
+    <li><a href="doc-05-clipping.html" class="doc-link">
+      <span class="doc-num">V</span>
+      <span><span class="doc-title-txt">The Illustrated Police News Clipping</span>
+      <span class="doc-subtitle">1 December 1888 &middot; Not found in surviving archives</span></span>
+      <span class="doc-type-tag">Newsprint</span>
+    </a></li>
+    <li><a href="doc-06-erasure-targets.html" class="doc-link">
+      <span class="doc-num">VI</span>
+      <span><span class="doc-title-txt">Erasure Targets List</span>
+      <span class="doc-subtitle">Four primary &middot; Three secondary &middot; Red wax underlining</span></span>
+      <span class="doc-type-tag">Internal List</span>
+    </a></li>
+    <li><a href="doc-07-notebook.html" class="doc-link">
+      <span class="doc-num">VII</span>
+      <span><span class="doc-title-txt">Personal Notebook Extract</span>
+      <span class="doc-subtitle">Five phases &middot; All marked complete &middot; Graphite pencil</span></span>
+      <span class="doc-type-tag">Notebook</span>
+    </a></li>
+    <li><a href="doc-08-retrieval-log.html" class="doc-link">
+      <span class="doc-num">VIII</span>
+      <span><span class="doc-title-txt">Retrieval Progress Log (Fragment)</span>
+      <span class="doc-subtitle">Institutions, items, dates &middot; Torn left margin</span></span>
+      <span class="doc-type-tag">Ledger Fragment</span>
+    </a></li>
+    <li><a href="doc-09-carte-blanche.html" class="doc-link">
+      <span class="doc-num">IX</span>
+      <span><span class="doc-title-txt">Home Office Carte Blanche Letter</span>
+      <span class="doc-subtitle">28 November 1888 &middot; Signed: Henry Matthews &middot; Unrestricted access granted</span></span>
+      <span class="doc-type-tag">Official Letter</span>
+    </a></li>
+  </ul>
+</div>
+<nav class="chapter-nav">
+  <a href="swifts-account-ch11.html" class="nav-btn">&larr; Swift&rsquo;s Account</a>
+  <div class="nav-centre"><a href="index.html">&uarr; Contents</a></div>
+  <a href="marlowe-paper.html" class="nav-btn">Marlowe Paper &rarr;</a>
+</nav>
+</div>
+</body>
+</html>
