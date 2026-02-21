@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archivist's Note — BGI/ALD/2021/037 · Operation Seamless</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;1,300;1,400&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --form-bg:    #f0ece2;
+      --form-dark:  #e2ddd0;
+      --page-bg:    #ddd8cc;
+      --ink:        #1a1612;
+      --ink-faded:  #4a4438;
+      --muted:      #7a7060;
+      --rule:       #bdb5a0;
+      --accent:     #2a3a5a;   /* institutional blue */
+      --red-stamp:  #8a1a0a;
+      --shadow:     rgba(26,22,18,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 0 0 4rem;
+      /* subtle linen texture */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    }
+
+    /* SITE NAV */
+    .site-nav {
+      padding: 0.9rem 4vw;
+      background: var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .site-nav a {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .site-nav a:hover { color: #fff; }
+    .site-nav .home { color: rgba(255,255,255,0.9); }
+    .site-nav-links { display: flex; gap: 1.8rem; }
+
+    /* OUTER WRAPPER - file folder feel */
+    .folder-wrap {
+      max-width: 860px;
+      margin: 3rem auto;
+      padding: 0 3vw;
+    }
+
+    /* INSTITUTION HEADER */
+    .institution-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .institution-name {
+      font-family: 'Inconsolata', monospace;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .institution-sub {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-top: 0.3rem;
+    }
+
+    .accession-block {
+      text-align: right;
+    }
+
+    .accession-label {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.55;
+    }
+
+    .accession-code {
+      font-family: 'Inconsolata', monospace;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      margin-top: 0.2rem;
+    }
+
+    /* FORM BODY */
+    .form-body {
+      background: var(--form-bg);
+      border: 1px solid var(--rule);
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+
+    /* FORM TITLE BAR */
+    .form-title-bar {
+      background: var(--form-dark);
+      border-bottom: 2px solid var(--rule);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .form-title {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-doc-title {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    /* FORM SECTIONS */
+    .form-section {
+      padding: 1.4rem 2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .form-section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* FIELD ROWS */
+    .field-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 0.5rem 1.5rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px dotted var(--rule);
+      align-items: baseline;
+    }
+
+    .field-row:last-child { border-bottom: none; }
+
+    .field-label {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding-top: 0.05rem;
+    }
+
+    .field-value {
+      font-size: 0.9rem;
+      color: var(--ink-faded);
+      line-height: 1.5;
+    }
+
+    .field-value em { font-style: italic; }
+    .field-value strong { font-weight: 600; color: var(--ink); }
+
+    /* PROSE SECTION (for longer text blocks) */
+    .form-prose {
+      font-size: 0.9rem;
+      color: var(--ink-faded);
+      line-height: 1.7;
+    }
+
+    .form-prose p + p { margin-top: 0.7rem; }
+
+    /* BULLET LIST */
+    .form-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-list li {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 0.5rem 1.5rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px dotted var(--rule);
+      font-size: 0.9rem;
+    }
+
+    .form-list li:last-child { border-bottom: none; }
+
+    .form-list li .fl-label {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .form-list li .fl-value { color: var(--ink-faded); }
+
+    /* CONDITION TAGS */
+    .condition-tag {
+      display: inline-block;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+      margin: 0.2rem 0.2rem 0 0;
+    }
+
+    /* STAMP */
+    .stamp-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 1.4rem 2rem;
+      background: var(--form-dark);
+      border-top: 2px solid var(--rule);
+      flex-wrap: wrap;
+    }
+
+    .access-stamp {
+      border: 2px solid var(--red-stamp);
+      padding: 0.4rem 1rem;
+      display: inline-block;
+      transform: rotate(-1.5deg);
+    }
+
+    .access-stamp span {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red-stamp);
+      font-weight: 500;
+    }
+
+    .restriction-note {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    /* NAVIGATION */
+    .page-nav {
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 0.4rem 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-btn:hover { background: var(--accent); color: #fff; }
+    .nav-btn.disabled { color: var(--rule); border-color: var(--rule); pointer-events: none; }
+
+    .nav-centre {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    .nav-centre a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--rule); }
+    .nav-centre a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a href="../../index.html" class="home">Andreas Breidenthal</a>
+    <div class="site-nav-links">
+      <a href="index.html">Contents</a>
+      <a href="../../index.html">Archive</a>
+      <a href="https://github.com/andreas-breidenthal/friction-trilogy" target="_blank">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="folder-wrap">
+
+    <!-- INSTITUTION HEADER -->
+    <div class="institution-header">
+      <div>
+        <div class="institution-name">Bishopsgate Institute</div>
+        <div class="institution-sub">Archive &amp; Special Collections · London EC2A 4BH</div>
+      </div>
+      <div class="accession-block">
+        <div class="accession-label">Accession Reference</div>
+        <div class="accession-code">BGI/ALD/2021/037</div>
+      </div>
+    </div>
+
+    <div class="form-body">
+
+      <!-- TITLE BAR -->
+      <div class="form-title-bar">
+        <span class="form-title">Catalogue Entry / Archivist's Description</span>
+        <span class="form-doc-title">The Aldgate Manuscript</span>
+      </div>
+
+      <!-- IDENTIFICATION -->
+      <div class="form-section">
+        <div class="section-label">§ 1 — Identity Statement</div>
+        <div class="field-row">
+          <span class="field-label">Reference Code</span>
+          <span class="field-value"><strong>BGI/ALD/2021/037</strong></span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Title</span>
+          <span class="field-value"><em>The Aldgate Manuscript</em></span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Date(s) of Creation</span>
+          <span class="field-value">c. April–May 1889</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Date of Accession</span>
+          <span class="field-value">9 April 2021</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Level of Description</span>
+          <span class="field-value">Item</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Extent and Medium</span>
+          <span class="field-value">4 leaves; handwritten in iron gall ink on laid paper</span>
+        </div>
+      </div>
+
+      <!-- ACQUISITION -->
+      <div class="form-section">
+        <div class="section-label">§ 2 — Acquisition Details</div>
+        <div class="field-row">
+          <span class="field-label">Source</span>
+          <span class="field-value">Recovered during renovation works at 47 Aldgate High Street, London EC3</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Method of Acquisition</span>
+          <span class="field-value">Discovered behind a false panel in a disused coal cellar</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Accession Number</span>
+          <span class="field-value">BGI/ALD/2021/037</span>
+        </div>
+      </div>
+
+      <!-- PROVENANCE -->
+      <div class="form-section">
+        <div class="section-label">§ 3 — Provenance</div>
+        <div class="form-prose">
+          <p>Recovered from a concealed compartment at 47 Aldgate High Street, a late Victorian commercial property formerly associated with the wine and spirit trade. Located with a wooden crate marked "C. Hill &amp; Co." and a folded receipt dated 1887 bearing the name "T. A. Davies." No prior record of archival deposit or private collection was associated with the property.</p>
+        </div>
+      </div>
+
+      <!-- PHYSICAL DESCRIPTION -->
+      <div class="form-section">
+        <div class="section-label">§ 4 — Physical Description</div>
+        <div class="field-row">
+          <span class="field-label">Format</span>
+          <span class="field-value">Four unlined quarto leaves</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Dimensions</span>
+          <span class="field-value">Approx. 25 × 20 cm</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Materials</span>
+          <span class="field-value">Laid paper; iron gall ink</span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Condition</span>
+          <span class="field-value">
+            <span class="condition-tag">Moderate foxing</span>
+            <span class="condition-tag">Edge wear</span>
+            <span class="condition-tag">Minor brittleness</span>
+            <span class="condition-tag">Ink stable, oxidised</span>
+          </span>
+        </div>
+        <div class="field-row">
+          <span class="field-label">Signature</span>
+          <span class="field-value">Final page signed <em>"Thomas Alexander Davies"</em> with discovery address</span>
+        </div>
+      </div>
+
+      <!-- SCOPE AND CONTENT -->
+      <div class="form-section">
+        <div class="section-label">§ 5 — Scope and Content</div>
+        <div class="form-prose">
+          <p>First-person narrative attributed to Thomas Alexander Davies, written approximately six months after events dated 25 November 1888 in Bishopsgate. Describes a violent incident involving individuals named PC James Thomas Reeve, Sergeant Arthur Melrose, and Clara Fenwick, and mentions retired Chief Inspector Percival Kerr. The manuscript refers to contemporary press coverage. Physical and geographical references are consistent with the period; the historical claims are unverified.</p>
+        </div>
+      </div>
+
+      <!-- BIOGRAPHICAL NOTE -->
+      <div class="form-section">
+        <div class="section-label">§ 6 — Biographical / Historical Note</div>
+        <div class="form-prose">
+          <p>Thomas Alexander Davies appears in late Victorian electoral registers and parish rate books as tenant of 47 Aldgate High Street from 1888. A notice in the <em>London Gazette</em> (21 July 1908) records commercial activity under the style "Christopher Hill, Wine and Spirit Merchant." These records confirm residence and trading identity associated with the address.</p>
+        </div>
+      </div>
+
+      <!-- CONSERVATION -->
+      <div class="form-section">
+        <div class="section-label">§ 7 — Conservation and Handling</div>
+        <ul class="form-list">
+          <li>
+            <span class="fl-label">Stabilisation</span>
+            <span class="fl-value">Air-dried and stabilised under controlled conditions following recovery</span>
+          </li>
+          <li>
+            <span class="fl-label">Storage</span>
+            <span class="fl-value">Housed in an acid-free folder within a humidity-controlled unit</span>
+          </li>
+          <li>
+            <span class="fl-label">Transcript</span>
+            <span class="fl-value">Full transcript prepared; high-resolution digital imaging in progress</span>
+          </li>
+          <li>
+            <span class="fl-label">Handling</span>
+            <span class="fl-value">Handle with nitrile gloves; support cradle recommended during consultation</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- STAMP + ACCESS -->
+      <div class="stamp-row">
+        <div class="access-stamp">
+          <span>Open for Research</span>
+        </div>
+        <div class="restriction-note">
+          Access under supervised conditions.<br>
+          No forensic testing undertaken; further analysis may be required to confirm origin and authorship.<br>
+          Reproduction subject to Bishopsgate Institute permissions and copyright policy.
+        </div>
+      </div>
+
+    </div><!-- /form-body -->
+
+    <!-- NAVIGATION -->
+    <div class="page-nav">
+      <a href="foreword.html" class="nav-btn">← Foreword</a>
+      <div class="nav-centre">
+        <a href="index.html">↑ Contents</a>
+      </div>
+      <a href="aldgate-manuscript.html" class="nav-btn">The Aldgate Manuscript →</a>
+    </div>
+
+  </div><!-- /folder-wrap -->
+
+</body>
+</html>
