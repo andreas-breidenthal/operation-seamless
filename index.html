@@ -79,7 +79,7 @@
         gap: 2.5rem;
       }
       .cover-img {
-        width: 100%;
+        width: calc(100% - 2rem);
         max-width: 100%;
         margin: 0 auto;
       }
@@ -87,15 +87,16 @@
 
     .cover-img {
       width: 100%;
-      box-shadow: 8px 10px 30px var(--shadow), 2px 3px 8px var(--shadow);
-      border: 1px solid var(--rule);
       background: var(--cream);
+      border-radius: 6px;
+      overflow: hidden;
     }
 
     .cover-img img {
       width: 100%;
       height: auto;
       display: block;
+      border-radius: 6px;
     }
 
     .title-block {
