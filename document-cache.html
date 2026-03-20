@@ -5,15 +5,16 @@
   <title>Document Cache · Operation Seamless</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inconsolata:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--page-bg:#c8b89a;--parchment:#f2e8d5;--parchment2:#ede0c4;--ink:#2a1f0e;--sepia:#6b4f2a;--muted:#9a7a50;--rule:#c0a878;--accent:#2a3a5a;--shadow:rgba(42,31,14,.25);  --paper:var(--ivory,var(--parchment,#faf7f2));--aged:var(--cream,var(--parchment2,#f5f0e8));--rust:var(--crimson,var(--accent,#8b1a1a));--gold:var(--muted,#8a7a68);--faded:var(--muted,#8a7a68);
-}
+    :root{--page-bg:#c8b89a;--parchment:#f2e8d5;--parchment2:#ede0c4;--ink:#2a1f0e;--sepia:#6b4f2a;--muted:#9a7a50;--rule:#c0a878;--accent:#2a3a5a;--shadow:rgba(42,31,14,.25);
+      --paper:var(--parchment);--aged:var(--parchment2);--rust:var(--accent);--gold:var(--sepia);--faded:var(--muted);
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background:var(--page-bg);color:var(--ink);font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;line-height:1.7;min-height:100vh;}
     .site-nav{padding:.9rem 4vw;background:var(--accent);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;position:fixed;top:0;left:0;right:0;z-index:100;}
     .site-nav a{font-family:'Inconsolata',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;}
     .site-nav a:hover{color:#fff;} .site-nav .home{color:rgba(255,255,255,.9);}
     .site-nav-links{display:flex;gap:1.8rem;}
-    .page-wrap{max-width:740px;margin:0 auto;padding:4rem 3vw 4rem;}
+    .page-wrap{max-width:740px;margin:0 auto;padding:8.0rem 3vw 4rem;}
     .cache-card{background:var(--parchment);box-shadow:0 2px 6px var(--shadow),0 8px 30px rgba(42,31,14,.3);padding:3rem 3.5rem;position:relative;}
     .cache-card::after{content:'';position:absolute;right:-7px;top:7px;bottom:-7px;width:7px;background:linear-gradient(to right,rgba(0,0,0,.18),transparent);pointer-events:none;}
     .cache-label{font-family:'Inconsolata',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}

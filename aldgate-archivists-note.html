@@ -17,8 +17,9 @@
       --accent:     #2a3a5a;   /* institutional blue */
       --red-stamp:  #8a1a0a;
       --shadow:     rgba(26,22,18,0.18);
-      --paper:var(--ivory,var(--parchment,#faf7f2));--aged:var(--cream,var(--parchment2,#f5f0e8));--rust:var(--crimson,var(--accent,#8b1a1a));--gold:var(--muted,#8a7a68);--faded:var(--muted,#8a7a68);
-}
+    
+      --paper:var(--form-bg);--aged:var(--form-dark);--rust:var(--red-stamp);--gold:var(--muted);--faded:var(--muted);
+    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -62,8 +63,8 @@
     /* OUTER WRAPPER - file folder feel */
     .folder-wrap {
       max-width: 860px;
-      margin: 3rem auto;
-      padding: 0 3vw;
+      margin:0 auto;
+      padding:8.0rem 3vw;
     }
 
     /* INSTITUTION HEADER */

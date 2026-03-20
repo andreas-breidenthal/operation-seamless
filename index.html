@@ -16,8 +16,9 @@
       --muted:   #8a7a68;
       --rule:    #d4c8b0;
       --shadow:  rgba(28,23,18,0.14);
-      --paper:var(--ivory,var(--parchment,#faf7f2));--aged:var(--cream,var(--parchment2,#f5f0e8));--rust:var(--crimson,var(--accent,#8b1a1a));--gold:var(--muted,#8a7a68);--faded:var(--muted,#8a7a68);
-}
+    
+      --paper:var(--ivory);--aged:var(--cream);--rust:var(--rust);--gold:var(--gold);--faded:var(--muted);
+    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -60,7 +61,7 @@
     .book-wrap {
       max-width: 1000px;
       margin: 0 auto;
-      padding: 4rem 4vw 6rem;
+      padding:8.0rem 4vw 6rem;
     }
 
     /* COVER + TITLE BLOCK */
@@ -287,16 +288,24 @@
     .fade-in:nth-child(1) { animation-delay: 0.05s; }
     .fade-in:nth-child(2) { animation-delay: 0.2s; }
     .fade-in:nth-child(3) { animation-delay: 0.35s; }
+  
+    /* Universal header override — match index colour scheme */
+    .universal-header {
+      background-color: var(--ivory) !important;
+      border-bottom: 1px solid var(--rule) !important;
+    }
+    .universal-header a,
+    .universal-header-opinions {
+      color: var(--sepia) !important;
+      opacity: 1 !important;
+    }
+    .universal-header a:hover,
+    .universal-header-opinions:hover {
+      color: var(--rust) !important;
+    }
   </style>
 </head>
 <body>
-
-  <nav class="site-nav">
-    <a href="https://andreas-breidenthal.github.io/andreas-breidenthal/" class="home">Andreas Breidenthal</a>
-    <div class="site-nav-links">
-      <a href="index.html">Contents</a>
-    </div>
-  </nav>
 
   <div class="book-wrap">
 
@@ -482,7 +491,8 @@
     </div>
 
     <!-- FOOTER -->
-</div>
+
+  </div>
 
   <script src="https://andreas-breidenthal.github.io/andreas-breidenthal/universal-header.js"></script>
   <script src="https://andreas-breidenthal.github.io/andreas-breidenthal/universal-footer.js"></script>
