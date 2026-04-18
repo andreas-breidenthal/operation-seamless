@@ -24,9 +24,9 @@ What begins as a fragmentary record becomes a story of erasure, obsession, and t
 
 ### Prefatory Matter
 
-* **—**  [Foreword](https://andreas-breidenthal.github.io/operation-seamless/foreword.html)  
+* **—**  [Foreword](https://andreas-breidenthal.github.io/operation-seamless/foreword.html) `Foreword`  
   *Presented by Andreas Breidenthal*
-  `Foreword`
+
 
 ### The First Cache · Aldgate, 2021
 
